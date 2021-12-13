@@ -16,22 +16,22 @@ void CreateObject()
     listUser.Add(user1);
     //}
 }
-User[] arrayUser = new User[] { listUser[0], listUser[1], listUser[2] };
-Console.WriteLine("before sort");
-int i = 0;
-while (i < arrayUser.Length)
-{
-    Console.WriteLine(arrayUser[i].Print());
-    i++;
-}
-Array.Sort(arrayUser);
-Console.WriteLine("after sort");
-int x = 0;
-while (x < arrayUser.Length)
-{
-    Console.WriteLine(arrayUser[x].Print());
-    x++;
-}
+//User[] arrayUser = new User[] { listUser[0], listUser[1], listUser[2] };
+//Console.WriteLine("before sort");
+//int i = 0;
+//while (i < arrayUser.Length)
+//{
+//    Console.WriteLine(arrayUser[i].Print());
+//    i++;
+//}
+//Array.Sort(arrayUser);
+//Console.WriteLine("after sort");
+//int x = 0;
+//while (x < arrayUser.Length)
+//{
+//    Console.WriteLine(arrayUser[x].Print());
+//    x++;
+//}
 
 /// exe 6 ///
 
@@ -86,7 +86,36 @@ void GetUserFile(string name)
         Console.Write(reader.ReadLine());
     }
 }
-
+// exe 10 \\
+void DeleteFileByName(string name)
+{
+    File.Delete(@$"C:/User/{name}.txt");
+}
+void EditUserFile(string name)
+{
+    //string editUser = "";
+    //FileStream fs = new FileStream($@"C:/User/{name}.txt", FileMode.Open);
+    //using(StreamReader reader = new StreamReader(fs))
+    //{
+    //  editUser = reader.ReadLine();
+    //}
+    
+    FileStream fss = new FileStream($@"C:/User/{name}.txt", FileMode.Create);
+    using (StreamWriter Writer = new StreamWriter(fss))
+    {
+        User user1 = new User();
+        Console.WriteLine("enter fname");
+        user1.FirstName = Console.ReadLine();
+        Console.WriteLine("enter lname");
+        user1.LastName = Console.ReadLine();
+        Console.WriteLine("enter email");
+        user1.Email = Console.ReadLine();
+        Console.WriteLine("enter yearB");
+        user1.BirthYear = int.Parse(Console.ReadLine());
+        Writer.WriteLine($"{user1.Print()}");
+    }
+}
+EditUserFile(Console.ReadLine());
 void MainFunction()
 {
     Console.WriteLine("1 - to add user");
@@ -99,8 +128,10 @@ void MainFunction()
             CreateObject();
             break;
         case 2:
+
             break;
         case 3:
+            DeleteFileByName(Console.ReadLine());
             break;
         case 4:
             GetUserFile(Console.ReadLine());
